@@ -1,5 +1,3 @@
-<?xml version="1.0"?>
-<!--
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,33 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<metainfo>
-  <schemaVersion>2.0</schemaVersion>
-  <services>
-    <service>
-      <name>RANGER_KMS</name>
-      <version>0.5.0.2.4</version>
+package org.apache.ambari.server.state.stack;
 
-      <osSpecifics>
-        <osSpecific>
-          <osFamily>redhat7,amazon2015,redhat6,suse11</osFamily>
-          <packages>
-            <package>
-              <name>ranger_2_4_*-kms</name>
-            </package>
-          </packages>
-        </osSpecific>
-        <osSpecific>
-          <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
-          <packages>
-            <package>
-              <name>ranger-2-4-.*-kms</name>
-            </package>
-          </packages>
-        </osSpecific>
-      </osSpecifics>
+import java.util.Map;
 
-    </service>
-  </services>
-</metainfo>
+public class JsonOsFamilyRoot {
+  private Map<String, JsonOsFamilyEntry> mapping;
+  private Map<String, String> aliases;
+  
+  public Map<String, JsonOsFamilyEntry> getMapping() {
+    return mapping;
+  }
+  public void setMapping(Map<String, JsonOsFamilyEntry> mapping) {
+    this.mapping = mapping;
+  }
+  public Map<String, String> getAliases() {
+    return aliases;
+  }
+  public void setAliases(Map<String, String> aliases) {
+    this.aliases = aliases;
+  }
+}
