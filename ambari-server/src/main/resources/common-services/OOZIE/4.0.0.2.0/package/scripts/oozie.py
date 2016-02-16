@@ -17,7 +17,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
-import hashlib
 import os
 
 from resource_management.core.resources.service import ServiceConfig
@@ -202,8 +201,7 @@ def oozie_server_specific():
   )
   
   hashcode_file = format("{oozie_home}/.hashcode")
-  hashcode = hashlib.md5(format('{oozie_home}/oozie-sharelib.tar.gz')).hexdigest()
-  skip_recreate_sharelib = format("test -f {hashcode_file} && test -d {oozie_home}/share && [[ `cat {hashcode_file}` == '{hashcode}' ]]")
+  skip_recreate_sharelib = format("test -f {hashcode_file} && test -d {oozie_home}/share")
 
   untar_sharelib = ('tar','-xvf',format('{oozie_home}/oozie-sharelib.tar.gz'),'-C',params.oozie_home)
 
@@ -240,7 +238,7 @@ def oozie_server_specific():
     )
 
   prepare_war_cmd_file = format("{oozie_home}/.prepare_war_cmd")
-  prepare_war_cmd = format("cd {oozie_tmp_dir} && {oozie_setup_sh} prepare-war {oozie_secure}")
+  prepare_war_cmd = format("cd {oozie_tmp_dir} && {oozie_setup_sh} prepare-war {oozie_secure}").strip()
   skip_prepare_war_cmd = format("test -f {prepare_war_cmd_file} && [[ `cat {prepare_war_cmd_file}` == '{prepare_war_cmd}' ]]")
 
   Execute(prepare_war_cmd,    # time-expensive
@@ -248,7 +246,6 @@ def oozie_server_specific():
     not_if  = format("{no_op_test} || {skip_recreate_sharelib} && {skip_prepare_war_cmd}")
   )
   File(hashcode_file,
-       content = hashcode,
        mode = 0644,
   )
   File(prepare_war_cmd_file,
