@@ -166,7 +166,6 @@ public class HeartBeatHandler {
   }
 
   public void start() {
-    heartbeatProcessor.startAsync();
     heartbeatMonitor.start();
   }
 
