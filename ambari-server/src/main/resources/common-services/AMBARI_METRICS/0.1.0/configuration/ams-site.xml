@@ -542,5 +542,11 @@
       Enable Compaction policy for lower for Precision and Minute aggregate tables.
     </description>
   </property>
-
+  <property>
+    <name>timeline.metrics.hbase.init.check.enabled</name>
+    <value>true</value>
+    <description>
+      Enable Initialization check for HBase tables during Metrics service startup.
+    </description>
+  </property>
 </configuration>
